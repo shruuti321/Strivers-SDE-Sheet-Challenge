@@ -17,3 +17,4 @@ int maximumProfit(vector<int> &prices){
     }
     return max;
 }
+//time comp=o(n)
