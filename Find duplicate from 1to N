@@ -17,3 +17,4 @@ int findDuplicate(vector<int> &arr, int n){
 	}
 	return 0;
 }
+//time comp=o(n)
