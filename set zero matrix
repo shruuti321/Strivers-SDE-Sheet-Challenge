@@ -1,0 +1,56 @@
+#include <bits/stdc++.h> 
+vector<vector<int>> zeroMatrix(vector<vector<int>> &matrix, int n, int m) {
+	// Write your code here.
+	//col[m]=matrix[0][j]
+	//row[n]=matrix[i][0]
+
+	int col0=1;
+	for(int i=0;i<n;i++)                                           
+	{
+		for(int j=0;j<m;j++)
+		{
+			if(matrix[i][j]==0)
+			{
+			
+            	matrix[i][0] = 0;                                      //jahan jahan 0 hai wo wali rows me zero
+				if(j!=0)                                                      
+			{
+				matrix[0][j]=0;                                               //but agr 0th col me zero nhi hai to normaly baki col me zero
+                                } else {
+                                  col0 = 0;                             //agr 0th coln me zero hai to use ek alg variable me store
+                                }
+                        }
+                }
+        }
+
+        for (int i=1;i<n;i++)                                     //ab 0th row aur 0th col ko chodkr baki puri matrix traverse
+		{
+			for(int j=1;j<m;j++)
+			{
+				if(matrix[i][j]!=0)
+				{
+					if(matrix[0][j]==0||matrix[i][0]==0)                              //jahan jahn 0th row ya 0th col me 0 hai,wahan 0 
+					{
+						matrix[i][j]=0;
+					}
+				}
+			}
+		}
+
+		if(matrix[0][0]==0)                                             //ab agr 00 pr zero hai to wo wali row ke sare coln 0
+		{
+                  for (int j = 0; j < m; j++) {
+                    matrix[0][j] = 0;
+                  }
+                }
+		if(col0==0)                                                   //aur agr us variable me 0 hai to us 0 coln ke sari rows bhi zero
+		{
+			for(int i=0;i<n;i++)
+			{
+				matrix[i][0]=0;
+			}
+		}
+		return matrix;
+}
+                                                                      //time comp=m*n
+                                                                      //space comp=o(1)
