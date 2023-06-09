@@ -1,0 +1,53 @@
+
+#include <bits/stdc++.h>
+using namespace std;
+
+void permut(int ind,vector<int>&v,vector<vector<int>>&ans)
+{
+    
+    if(ind==v.size())
+    {
+        ans.push_back(v);
+        return;
+    }
+    
+    for(int i=ind;i<v.size();i++)
+    {
+        swap(v[i],v[ind]);
+        permut(ind+1,v,ans);
+        swap(v[i],v[ind]);
+    }
+}
+
+void check(vector<int>&v1,vector<vector<int>>&ans)
+{
+    for(int i=0;i<ans.size();i++)
+    {
+        if(ans[i]==v1)
+        {
+           for(int j=0;j<ans[i].size();j++)
+           {
+               cout<<ans[i+1][j]<<" ";
+           }
+        }
+    }
+    
+}
+
+int main()
+{
+    vector<int>v={2,3,4};
+    vector<vector<int>>ans;
+    permut(0,v,ans);
+    for(int i=0;i<ans.size();i++)
+    {
+        for(int j=0;j<ans[i].size();j++)
+        {
+            cout<<ans[i][j]<<" ";
+        }
+        cout<<endl;
+    }
+    
+    vector<int>v1={3,2,4};
+    check(v1,ans);
+}
