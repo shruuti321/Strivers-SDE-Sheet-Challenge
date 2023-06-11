@@ -1,0 +1,41 @@
+#include <bits/stdc++.h>            //my solution
+
+vector<int> ninjaAndSortedArrays(vector<int>& arr1, vector<int>& arr2, int m, int n) {
+	// Write your code here.
+	int k=0;
+	for(int i=m;i<m+n;i++)
+	{	
+		replace(arr1.begin(),arr1.end(),arr1[i],arr2[k]);
+		k++;
+	}
+	sort(arr1.begin(),arr1.end());
+	return arr1;
+}
+
+
+#include <bits/stdc++.h>                          ////striver's
+
+vector<int> ninjaAndSortedArrays(vector<int>& arr1, vector<int>& arr2, int m, int n) {
+	// Write your code here.
+	int l=m-1;
+	int r=0;
+	while(l>=0 && r<n)
+	{
+		if(arr1[l]>arr2[r])
+		{
+			swap(arr1[l],arr2[r]);
+		}
+	l--;
+	r++;
+	}
+	sort(arr1.begin(),arr1.begin()+m);
+	sort(arr2.begin(),arr2.end());
+	int k=0;
+	for(int i=m;i<m+n;i++)
+	{
+		replace(arr1.begin(),arr1.end(),arr1[i],arr2[k]);
+		k++;
+	}
+	return arr1;
+
+}
