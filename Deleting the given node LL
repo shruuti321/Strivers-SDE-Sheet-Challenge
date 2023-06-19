@@ -1,0 +1,11 @@
+void deleteNode(LinkedListNode<int> * node) {
+    // Write your code here.
+
+    while(node->next->next!=NULL)
+    {
+        node->data=node->next->data;
+        node=node->next;
+    }
+    node->data=node->next->data;
+    node->next=NULL;
+}
