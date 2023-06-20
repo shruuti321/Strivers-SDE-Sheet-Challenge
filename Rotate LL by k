@@ -1,0 +1,24 @@
+Node *rotate(Node *head, int k) {
+     // Write your code here.
+     
+     Node* temp=head;
+     int count=0;
+     while(temp->next!=NULL)
+     {
+          temp=temp->next;
+          count++;
+     }
+     count++;
+     temp->next=head;
+     k=k%count;
+     int rot=count-k;
+     while(rot!=0)
+     {
+          temp=temp->next;
+          rot--;
+     }
+     head=temp->next;
+     temp->next=NULL;
+     
+     return head;
+}
