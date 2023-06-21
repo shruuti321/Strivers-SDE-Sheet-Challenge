@@ -1,0 +1,43 @@
+class Solution {
+public:
+    bool isPalindrome(ListNode* head) {
+        ListNode* slow=head;
+        ListNode* fast=head;
+        ListNode* temp=head;
+        while(fast->next!=NULL)              ///find Middle of LL
+        {
+            fast=fast->next;
+            if(fast->next!=NULL)
+            {
+                fast=fast->next;
+                
+            }
+            slow=slow->next;
+        }
+
+        ListNode* prev=NULL;                ///Reverse of second half
+        ListNode* curr=slow;
+        ListNode* forw=NULL;
+        while(curr!=NULL)
+        {
+            forw=curr->next;
+            curr->next=prev;
+            prev=curr;
+            curr=forw;
+        }
+        while(prev!=NULL)                   //check if first &second half equal
+        {
+            if(temp->val==prev->val)
+            {
+                prev=prev->next;
+                temp=temp->next;
+
+            }
+            else{
+                return false;
+            }
+        }
+        return true;
+        
+    }
+};
