@@ -1,0 +1,18 @@
+int totalSteps(int n, int k, vector<int> &arr) {
+    //    Write your code here
+    int step=0;
+    int water=k;
+    for(int i=0;i<n-1;i++)
+    {   
+            step++;
+            water=water-arr[i];
+        if(water-arr[i+1]<0)
+        {
+            water=k;
+            step=step+2*(i+1);
+        }
+        }
+         step++;
+        return step;      
+}
+
