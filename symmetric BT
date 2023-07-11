@@ -1,0 +1,47 @@
+#include <bits/stdc++.h> 
+// Following is the Binary Tree node structure
+/**************
+class BinaryTreeNode {
+    public : 
+    T data;
+    BinaryTreeNode<T> *left;
+    BinaryTreeNode<T> *right;
+
+    BinaryTreeNode(T data) {
+        this -> data = data;
+        left = NULL;
+        right = NULL;
+    }
+    
+};
+***************/
+void check(BinaryTreeNode<int>* root1,BinaryTreeNode<int>* root2,bool &flag)
+{
+    if(root1==NULL && root2==NULL)
+    {
+        return;
+    }
+    if(root1==NULL || root2==NULL)
+    {
+        flag=false;
+        return;
+    }
+    if(root1->data!=root2->data)
+    {
+        flag=false;
+        return;
+    }
+    check(root1->left,root2->right,flag);
+    check(root1->right,root2->left,flag);
+
+}
+bool isSymmetric(BinaryTreeNode<int>* root) {
+	//Write your code here
+    bool flag=true;
+    if(root==NULL)
+    {
+        return flag;
+    }
+    check(root->left,root->right,flag);
+    return flag;
+}
