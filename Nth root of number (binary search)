@@ -1,0 +1,19 @@
+int bin(int low,int high,int n,int m)
+{
+    if(low>=high)return -1;
+    int mid=(low+high)/2;
+    if(pow(mid,n)==m) return mid;
+    else if(pow(mid,n)>m)
+    {
+      bin(low,mid,n,m);
+    }
+    else{
+      bin(mid+1,high,n,m);
+    }
+
+}
+
+int NthRoot(int n, int m) {
+  // Write your code here.
+     return bin(1,m,n,m);
+}
