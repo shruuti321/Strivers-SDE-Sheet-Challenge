@@ -1,0 +1,17 @@
+#include <bits/stdc++.h> 
+int countDistinctWays(int nStairs) {
+    //  Write your code here.
+    const int mod=10000000007;
+    int prev0=0;
+    int prev1=1;
+    int curr=0;
+    if(nStairs<=1)return 1;
+    for(int i=2;i<=nStairs+1;i++)
+    {
+        curr=prev0+prev1;
+        prev0=prev1;
+        prev1=curr;
+    }
+    return (curr)%mod;
+    
+}
