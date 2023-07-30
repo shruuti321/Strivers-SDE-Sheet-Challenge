@@ -1,0 +1,29 @@
+#include<bits/stdc++.h>
+using namespace std;
+
+int main()
+{
+        /*
+        *  Write your code here. 
+         *  Read input as specified in the question.
+         *  Print output as specified in the question.
+        */
+       int n;
+       cin>>n;
+       int prev0=0;
+       int prev1=1;
+       int curr=0;
+       if(n==1){
+               cout<<1;
+       }
+       else
+       {
+       for(int i=2;i<=n;i++)
+       {
+               curr=prev0+prev1;
+               prev0=prev1;
+               prev1=curr;               
+       }
+       cout<<curr;
+       }
+}
