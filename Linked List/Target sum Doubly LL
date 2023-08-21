@@ -1,0 +1,54 @@
+/**
+ * Definition of doubly linked list:
+ * class Node {
+ * public:
+ *      int data;
+ *      Node *prev;
+ *      Node *next;
+ *      Node() {
+ *          this->data = 0;
+ *          this->prev = NULL;
+ *          this->next = NULL;
+ *      }
+ *      Node(int data) {
+ *          this->data = data;
+ *          this->prev = NULL;
+ *          this->next = NULL;
+ *      }
+ *      Node (int data, Node *next, Node *prev) {
+ *          this -> data = data;
+ *          this -> prev = prev;
+ *          this -> next = next;
+ *      }
+ * };
+ *
+ *************************************************************************/
+
+vector<pair<int, int>> findPairs(Node* head, int k)
+{
+    // Write your code here.
+        
+    vector<pair<int, int>>v;
+    Node *temp=head;
+    while(temp->next!=NULL)
+    {
+        temp=temp->next;
+    }
+    Node* start=head;
+    while(start<temp)
+    {
+        if(start->data+temp->data==k)
+        {
+            v.push_back({start->data,temp->data});
+            start=start->next;
+            temp=temp->prev;
+        }
+        else if(start->data+temp->data<k)
+        {
+            start=start->next;
+        }
+        else temp=temp->prev;
+    }
+    return v;
+
+}
