@@ -25,8 +25,8 @@ vector<int> getTopView(TreeNode<int> *root)
     // Write your code here.
     vector<int>ans;
     if(root==NULL)return ans;
-    queue<pair<TreeNode<int>*,int>>q;
-    map<int,int>mpp;
+    queue<pair<TreeNode<int>*,int>>q;                                               //node,x coordinate(line)
+    map<int,int>mpp;                                                                // line,node val
 
     q.push({root,0});
     while(!q.empty())
@@ -37,7 +37,7 @@ vector<int> getTopView(TreeNode<int> *root)
         int val=node->data;
         int line=it.second;
         
-         if(mpp.find(line)==mpp.end())
+         if(mpp.find(line)==mpp.end())                                            //only one element from each line (i.e top element)
         {
             mpp[line]=val;
         }
@@ -55,7 +55,7 @@ vector<int> getTopView(TreeNode<int> *root)
 
     for(auto i:mpp)
     {
-        ans.push_back(i.second);
+        ans.push_back(i.second);                                                    //map stores in sorted order of keys
     }
     return ans;
 }
