@@ -1,0 +1,25 @@
+#include <bits/stdc++.h>                                                       //TC=O(nlogn)
+int getLongestSubarray(vector<int>& nums, int k){
+    // Write your code here
+    map<long long,int>mpp;
+    long long sum=0;
+    int len=0;
+    for(int i=0;i<nums.size();i++)
+    {
+         sum+=nums[i];
+                                                                               
+         if(sum==k)
+         {
+             len=max(len,i+1);
+         }
+        long long rem=sum-k;                                                  //reverse maths
+             if(mpp.find(rem)!=mpp.end())                                      //if (x-k) sum is found in hashmap then longest len=i-mpp[rem] 
+             {
+                 len=max(len,i-mpp[rem]);
+             }
+         
+         if(mpp.find(sum)==mpp.end())                                         //if sum already exists then dont update the index as we need the leftmost index;
+            mpp[sum]=i;
+    }
+    return len;
+}
