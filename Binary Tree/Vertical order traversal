@@ -1,0 +1,61 @@
+/************************************************************
+
+    Following is the TreeNode class structure:
+
+    template <typename T>
+    class TreeNode
+    {
+    public:
+        T data;
+        TreeNode<T> *left;
+        TreeNode<T> *right;
+
+        TreeNode(T dat)
+        {
+            this->data = dat;
+            left = NULL;
+            right = NULL;
+        }
+    };
+
+************************************************************/
+#include<bits/stdc++.h>
+vector<int> verticalOrderTraversal(TreeNode<int> *root)
+{
+	// Write your code here.
+    queue<pair<TreeNode<int>*,pair<int,int>>>q;                    // queue<node,<line,level>>
+    map<int,map<int,multiset<int>>>mpp;                            //map<line<map<level,multiset<int>>>          //multiset because soreted order one level cand one line
+    vector<int>ans;                                                                                                       can have multiple nodes
+    if(root==NULL)return ans;
+    q.push({root,{0,0}});
+    while(!q.empty()) 
+    {
+        auto it=q.front();
+        q.pop();
+        TreeNode<int>* node=it.first;
+        int val=node->data;
+        int x=it.second.first;
+        int y=it.second.second;
+        mpp[x][y].insert(val);                                        //insert() to insert in multiset
+
+        if(node->left!=NULL)
+        {
+            q.push({node->left,{x-1,y+1}});
+        }
+        
+        if(node->right!=NULL)
+        {
+            q.push({node->right,{x+1,y+1}});
+        }
+    }
+
+    for(auto it:mpp)                                          //it=map<int,map<int,multiset>>
+    {   
+        for(auto x:it.second)                                    //x=map<int,multiset>
+        {
+            ans.insert(ans.end(),x.second.begin(),x.second.end());                 //x.second=multiset ke elements from begin to end insert in ans;
+        }
+        
+    }
+    return ans;
+}
