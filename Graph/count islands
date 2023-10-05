@@ -1,0 +1,49 @@
+#include<bits/stdc++.h>
+//char sDir[] = {'l', 'u', 'r', 'd'};
+void bfs(int row,int col,vector<vector<int>>&vis,int **arr,int n,int m)
+{
+    queue<pair<int,int>>q;
+    q.push({row,col});
+    vis[row][col]=1;
+     
+    while(!q.empty())
+    {
+        int row=q.front().first;
+        int col=q.front().second;
+        q.pop();
+        int nrow,ncol;
+        for(int delr=-1;delr<=1;delr++)
+        {
+            for(int delc=-1;delc<=1;delc++)
+            {
+                nrow=row+delr;
+                ncol=col+delc;
+                if(nrow>=0 && nrow<n && ncol>=0 && ncol<m && !vis[nrow][ncol] && arr[nrow][ncol]==1)
+                {
+                    vis[nrow][ncol]=1;
+                    q.push({nrow,ncol});
+                } 
+            }
+        }
+    }
+}
+
+
+int distinctIslands(int** arr, int n, int m)
+{
+    //Write your code here
+    vector<vector<int>>vis(n,vector<int>(m,0));
+    int cnt=0;
+    for(int i=0;i<n;i++)
+    {
+        for(int j=0;j<m;j++)
+        {
+            if(arr[i][j]==1 && !vis[i][j])
+            {
+                bfs(i,j,vis,arr,n,m);
+                cnt++;
+            }
+        }
+    }
+    return cnt;
+}
