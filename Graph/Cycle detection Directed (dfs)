@@ -1,0 +1,40 @@
+bool dfs(vector<int>&vis,vector<int>&path,vector<int>adj[],int src)
+{
+	vis[src]=1;
+	path[src]=1;
+	for(auto it:adj[src])
+	{
+		if(!vis[it])
+		{
+			if(dfs(vis,path,adj,it))
+			{
+				return true;
+			}
+		}
+		else if(path[it])return true;
+	}
+	path[src]=0;
+	return false;
+}
+
+
+bool isCyclic(vector<vector<int>>& edges, int v, int e)
+{
+	// Write your code here
+	vector<int>adj[v];
+	for(int i=0;i<e;i++)
+	{
+		adj[edges[i][0]].push_back(edges[i][1]);
+	}
+	vector<int>vis(v,0);
+	vector<int>path(v,0);
+	for(int i=0;i<v;i++)
+	{
+		if(!vis[i])
+		{
+			if(dfs(vis,path,adj,i))
+			return true;
+		}
+	}
+	return false;
+}
