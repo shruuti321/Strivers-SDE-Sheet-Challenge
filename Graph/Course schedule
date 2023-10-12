@@ -1,0 +1,47 @@
+vector<int> findSchedule(int n, vector<pair<int, int>> &pre)
+{
+    // Write your code here.
+    queue<int>q;
+    vector<int>topo;
+    vector<int>adj[n+1];
+    int indegree[n+1]={0};
+    for(int i=0;i<pre.size();i++)
+    {
+        adj[pre[i].second].push_back(pre[i].first);
+    }
+    for(int i=1;i<=n;i++)
+    {
+        for(auto it:adj[i])
+        {
+            indegree[it]++;
+        }
+    }
+    for(int i=1;i<=n;i++)
+    {
+        if(indegree[i]==0)
+        {
+            q.push(i);
+        }
+    }
+
+    while(!q.empty())
+    {
+        int node=q.front();
+        q.pop();
+        topo.push_back(node);
+        for(auto it:adj[node])
+        {
+            indegree[it]--;
+            if(indegree[it]==0)
+            {
+                q.push(it);
+            }
+        }
+    }
+    if (topo.size() != n)
+    {
+        topo.clear();
+    }
+   
+    return topo;
+}
