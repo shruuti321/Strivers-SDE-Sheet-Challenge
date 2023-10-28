@@ -1,4 +1,4 @@
-
+//SORT METHOD
 class Solution
 {
     public:
@@ -10,6 +10,39 @@ class Solution
         sort(a.begin(),a.end());
         sort(b.begin(),b.end());
         if(a!=b)return false;
+        return true;
+        
+    }
+
+};
+
+//HASH MAP
+class Solution
+{
+    public:
+    //Function is to check whether two strings are anagram of each other or not.
+    bool isAnagram(string a, string b){
+        
+        // Your code here
+        if(a.length()!=b.length())return false;
+       
+        
+        unordered_map<char,int>mpp;
+        for(int i=0;i<a.length();i++)
+        {
+            mpp[a[i]]++;
+        }
+        for(int j=0;j<b.length();j++)
+        {
+            if(mpp.find(b[j])!=mpp.end())
+                mpp[b[j]]--;
+            else return false;
+        }
+        
+        for(auto it:mpp)
+        {
+            if(it.second!=0)return false;
+        }
         return true;
         
     }
