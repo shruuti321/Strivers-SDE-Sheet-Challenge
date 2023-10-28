@@ -1,0 +1,39 @@
+
+vector<int> dijkstra(vector<vector<int>> &edge, int vertices, int edges, int source)
+{
+    // Write your code here.
+    // 'edge' contains {u, v, distance} vectors.
+    vector<pair<int,int>>adj[vertices];
+    for(int i=0;i<edges;i++)
+    {
+        adj[edge[i][0]].push_back({edge[i][1],edge[i][2]});
+        adj[edge[i][1]].push_back({edge[i][0],edge[i][2]});
+    }
+    vector<int>dist(vertices,1e9);
+    
+    set<pair<int,int>>s;
+    s.insert({0,source});
+    dist[source]=0;
+    while(!s.empty())
+    {
+        auto x=*(s.begin());
+        int node=x.second;
+        int dis=x.first;
+        s.erase(x);
+        for(auto it:adj[node])
+        {   
+            
+            if(it.second+dis<dist[it.first])
+            {   
+                if(dist[it.first]!=1e9)
+                {
+                    s.erase({dist[it.first],it.first});
+                }
+           
+                dist[it.first]=it.second+dis;
+                s.insert({dist[it.first],it.first});
+            }
+        }
+    }
+    return dist;
+}
