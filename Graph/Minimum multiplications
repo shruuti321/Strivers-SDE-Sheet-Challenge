@@ -1,0 +1,32 @@
+int minimumOperations(int n, int start, int end, vector<int> &a)
+{
+    // Write your code here
+    queue<pair<int,int>>q;
+    //steps,prod
+
+    int dist[1000];
+    for(int i=0;i<1000;i++)
+    {
+        dist[i]=1e9;
+    }
+
+    q.push({0,start});
+    dist[start]=0;
+    while(!q.empty())
+    {
+        int step=q.front().first;
+        int prod=q.front().second;
+        q.pop();
+        if(prod==end)return step;
+        for(int i=0;i<a.size();i++)
+        {
+            int mul=(prod*a[i])%1000;
+            if(dist[mul]!=1e9)continue;
+            q.push({step+1,mul});
+            dist[mul]=step+1;
+        }
+
+    }
+    return -1;
+
+}
