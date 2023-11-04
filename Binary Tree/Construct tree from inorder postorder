@@ -1,0 +1,27 @@
+#include<bits/stdc++.h>
+TreeNode<int>* solve(int &ind,int inStart,int inEnd,int n,vector<int>inorder,vector<int>postorder,map<int,int>mpp)
+{
+     if(ind<0 || inStart>inEnd)
+     {
+          return NULL;
+     }
+     int element=postorder[ind--];
+     int pos=mpp[element];
+     TreeNode<int>* root=new TreeNode<int>(element);
+     
+     root->right=solve(ind,pos+1,inEnd,n,inorder,postorder,mpp);
+     root->left=solve(ind,inStart,pos-1,n,inorder,postorder,mpp);
+     return root;
+}
+
+TreeNode<int>* getTreeFromPostorderAndInorder(vector<int>& postorder, vector<int>& inorder){
+	// Write your code here.
+     int postInd=postorder.size()-1;
+   map<int,int>mpp;
+     for(int i=0;i<inorder.size();i++)
+     {
+         mpp[inorder[i]]=i;
+     }
+     TreeNode<int>* ans=solve(postInd,0,inorder.size()-1,inorder.size(),inorder,postorder,mpp);
+     return ans;
+}
