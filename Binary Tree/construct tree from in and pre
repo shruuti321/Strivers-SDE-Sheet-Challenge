@@ -1,0 +1,37 @@
+************************************************************/
+//function to find position instead of hashmap
+int find(int pos,vector<int>inorder)
+{
+    for(int i=0;i<inorder.size();i++)
+    {
+        if(inorder[i]==pos)return i;
+    }
+    return -1;
+}
+TreeNode<int>* solve(int &ind,int inStart,int inEnd,int n,vector<int>inorder,vector<int>preorder,unordered_map<int,int>mpp)
+{
+     if(ind>=n || inStart>inEnd)
+     {
+          return NULL;
+     }
+
+     int element=preorder[ind++];
+     int pos=mpp[element];
+     TreeNode<int>* root=new TreeNode<int>(element);
+     root->left=solve(ind,inStart,pos-1,n,inorder,preorder,mpp);
+     root->right=solve(ind,pos+1,inEnd,n,inorder,preorder,mpp);
+     return root;
+}
+
+TreeNode<int> *buildBinaryTree(vector<int> &inorder, vector<int> &preorder)
+{
+	//    Write your code here
+     int preInd=0;
+     unordered_map<int,int>mpp;
+     for(int i=0;i<inorder.size();i++)
+     {
+         mpp[inorder[i]]=i;
+     }
+     TreeNode<int>* ans=solve(preInd,0,inorder.size()-1,inorder.size(),inorder,preorder,mpp);
+     return ans;
+}
