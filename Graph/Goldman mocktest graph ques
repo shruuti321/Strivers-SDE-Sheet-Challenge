@@ -1,0 +1,81 @@
+#include<bits/stdc++.h>
+
+using namespace std;
+
+void mini(int N,int q,vector<vector<int>>G,int sn[],int en[])
+{   
+    queue<pair<int,int>>qu;
+    int flag=0;
+    vector<int>adj[N];
+    for(int i=0;i<N;i++)
+    {
+        for(int j=0;j<N;j++)
+        {
+            if(G[i][j]==1)
+            {
+                adj[i].push_back(j);
+                adj[j].push_back(i);
+            }
+        }
+    }
+    for(int i=0;i<q;i++)
+    {
+        int src=sn[i];
+        int dest=en[i];
+        if(G[src][dest]==1)
+        {
+            cout<<1<<endl;
+            break;
+        }
+        qu.push({src,0});
+        while(!qu.empty())
+        {
+            auto it=qu.front();
+            int node=it.first;
+            int dis=it.second;
+            qu.pop();
+            for(auto x:adj[node])
+            {
+                if(x==dest)
+                {
+                    cout<<dis+1<<" ";
+                    flag=1;
+                    break;
+                }
+                else{
+                    qu.push({x,dis+1});
+                }
+            }
+            if(flag==1)break;
+        }
+        if(flag==0)cout<<-1<<" ";
+        flag=0;
+        
+    }
+}
+
+int main()
+{
+    int n=0,q=0;
+    cin>>n>>q;
+    vector<vector<int>>G;
+    for(int i=0;i<n;i++)
+    {   
+        vector<int>v;
+        for(int j=0;j<n;j++)
+        {   
+            int x;
+            cin>>x;
+            v.push_back(x);
+        }
+        G.push_back(v);
+    }
+    int sn[n];
+    int en[n];
+    for(int i=0;i<q;i++)
+    {
+        cin>>sn[i]>>en[i];
+    }
+   mini(n,q,G,sn,en);
+  
+}
