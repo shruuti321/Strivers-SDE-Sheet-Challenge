@@ -1,0 +1,35 @@
+#include <bits/stdc++.h> 
+long long int f(vector<int>&a,vector<int>dp,int ind)
+{
+    if(ind==0)return a[ind];
+    if(ind<0)return 0;
+    if(dp[ind]!=-1)return dp[ind];
+    int take=a[ind]+f(a,dp,ind-2);
+    int nottake=f(a,dp,ind-1);
+    return  dp[ind]=max(take,nottake);
+
+}
+long long int houseRobber(vector<int>& val)
+{
+    // Write your code here.
+    int n=val.size();
+    if(n==1)return val[0];
+    vector<int>a2;
+    vector<int>a1=val;
+    a1.pop_back();
+    for(int i=1;i<n;i++)
+    {
+        a2.push_back(val[i]);
+    }
+    // for(int i=0;i<a2.size();i++)
+    // {
+    //     cout<<a2[i];
+    // }
+    vector<int>dp(n,-1);
+    long long ans1=f(a1,dp,n-2);
+    //cout<<ans1;
+     
+    long long ans2=f(a2,dp,n-2);
+    //cout<<ans2;
+    return max(ans1,ans2);
+}
