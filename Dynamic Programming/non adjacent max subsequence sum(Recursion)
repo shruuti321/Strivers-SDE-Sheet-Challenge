@@ -1,0 +1,15 @@
+#include <bits/stdc++.h> 
+int f(int ind,vector<int>&dp,vector<int>nums)
+{
+    if(ind==0)return nums[ind];
+    if(ind<0)return 0;
+    int pick=nums[ind]+f(ind-2,dp,nums);
+    int notpick=f(ind-1,dp,nums);
+    return max(pick,notpick);
+}
+int maximumNonAdjacentSum(vector<int> &nums){
+    // Write your code here.
+    int n=nums.size();
+    vector<int>dp(n,-1);
+    return f(n-1,dp,nums);
+}
