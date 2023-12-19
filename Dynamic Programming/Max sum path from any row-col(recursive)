@@ -1,0 +1,29 @@
+#include <bits/stdc++.h> 
+int f(int i,int j,vector<vector<int>> &matrix)
+{   
+    int n=matrix.size();
+    int m=matrix[0].size();
+     if(i<0 || j<0 || j>m-1)return -1e9;
+    if(i==0)return matrix[i][j];
+   
+
+    int up=matrix[i][j]+f(i-1,j,matrix);
+    int ldiag=matrix[i][j]+f(i-1,j-1,matrix);
+    int rdiag=matrix[i][j]+f(i-1,j+1,matrix);
+    return max(up,max(ldiag,rdiag));
+}
+
+
+int getMaxPathSum(vector<vector<int>> &matrix)
+{
+    //  Write your code here.
+    int n=matrix.size();
+    int m=matrix[0].size();
+    int maxi=INT_MIN;
+    for(int j=0;j<m;j++)
+    {
+        int ans=f(n-1,j,matrix);
+        maxi=max(ans,maxi);
+    }
+    return maxi;
+}
