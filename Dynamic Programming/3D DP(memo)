@@ -1,0 +1,38 @@
+#include <bits/stdc++.h> 
+int f(int i,int j1,int j2, vector<vector<int>> &matrix,vector<vector<vector<int>>>&dp)
+{   
+    int n=matrix.size();
+    int m=matrix[0].size();
+    if(j1<0 || j1>m-1 || j2<0 || j2>m-1)
+        return -1e9;
+    if(i==n-1)
+    {
+        if(j1==j2)
+        {
+            return matrix[i][j1];
+        }
+        else 
+        {
+            return matrix[i][j1]+matrix[i][j2];
+        }
+    }
+    if(dp[i][j1][j2]!=-1)return dp[i][j1][j2];
+    int maxi=INT_MIN;
+    for(int di=-1;di<=1;di++)
+    {
+        for(int dj=-1;dj<=1;dj++)
+        {   
+            int ans;
+            if(j1==j2)ans=matrix[i][j1]+f(i+1,di+j1,dj+j2,matrix,dp);
+            else ans=matrix[i][j1]+matrix[i][j2]+f(i+1,di+j1,dj+j2,matrix,dp);
+            maxi=max(maxi,ans);
+        }
+    }
+    return dp[i][j1][j2]=maxi;
+}
+int maximumChocolates(int r, int c, vector<vector<int>> &grid) {
+    // Write your code here.
+   
+    vector<vector<vector<int>>>dp(r,vector<vector<int>>(c,vector<int>(c,-1)));
+    return f(0,0,c-1,grid,dp);
+}
