@@ -1,0 +1,28 @@
+#include <bits/stdc++.h> 
+int f(int ind,int target,vector<int>weight,vector<int>value,vector<vector<int>>&dp)
+{
+	// if(target==0)
+	// {
+	// 	return value[ind];
+	// }
+	if(ind==0)
+	{
+		if(weight[ind]<=target)return value[ind];
+		return 0;
+	}
+	if(dp[ind][target]!=-1)return dp[ind][target];
+	int notpick=f(ind-1,target,weight,value,dp);
+	int pick=0;
+	if(weight[ind]<=target)
+	{
+		pick=value[ind]+f(ind-1,target-weight[ind],weight,value,dp);
+	}
+	return dp[ind][target]=max(pick,notpick);
+	
+}
+int knapsack(vector<int> weight, vector<int> value, int n, int maxWeight) 
+{
+	// Write your code here
+	vector<vector<int>>dp(n,vector<int>(maxWeight+1,-1));
+	return f(n-1,maxWeight,weight,value,dp);
+}
