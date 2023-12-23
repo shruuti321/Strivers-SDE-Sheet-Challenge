@@ -1,0 +1,18 @@
+int f(int ind,int target,vector<int>weight,vector<int>profit,vector<vector<int>>&dp)
+{
+    if(ind==0)
+    {
+        if(weight[ind]<=target)
+            return (target/weight[ind])*(profit[ind]);
+        else return 0;
+    }
+    if(dp[ind][target]!=-1)return dp[ind][target];
+
+    int notpick=f(ind-1,target,weight,profit,dp);
+    int pick=-1e9;
+    if(weight[ind]<=target)
+    {
+        pick=profit[ind]+f(ind,target-weight[ind],weight,profit,dp);
+    }
+    return dp[ind][target]=max(pick,notpick);
+}
