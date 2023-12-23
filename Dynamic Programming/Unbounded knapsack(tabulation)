@@ -1,18 +1,26 @@
-int f(int ind,int target,vector<int>weight,vector<int>profit,vector<vector<int>>&dp)
-{
-    if(ind==0)
-    {
-        if(weight[ind]<=target)
-            return (target/weight[ind])*(profit[ind]);
-        else return 0;
-    }
-    if(dp[ind][target]!=-1)return dp[ind][target];
 
-    int notpick=f(ind-1,target,weight,profit,dp);
-    int pick=-1e9;
-    if(weight[ind]<=target)
+int unboundedKnapsack(int n, int w, vector<int> &profit, vector<int> &weight){
+    // Write Your Code Here.
+    vector<vector<int>>dp(n,vector<int>(w+1,0));
+    
+    for(int i=0;i<=w;i++)
     {
-        pick=profit[ind]+f(ind,target-weight[ind],weight,profit,dp);
+        if(i%weight[0]==0)
+            dp[0][i]=(i/weight[0])*profit[0];
+       
     }
-    return dp[ind][target]=max(pick,notpick);
+    for(int i=1;i<n;i++)
+    {
+        for(int j=0;j<=w;j++)
+        {
+                int notpick=dp[i-1][j];
+                int pick=-1e9;
+                if(weight[i]<=j)
+                {
+                    pick=profit[i]+dp[i][j-weight[i]];
+                }
+                dp[i][j]=max(pick,notpick);
+        }
+    }
+    return dp[n-1][w];
 }
