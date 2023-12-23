@@ -1,0 +1,17 @@
+int f(int ind,int target,vector<int>price,vector<vector<int>>&dp)
+{
+	if(ind==0)
+	{		
+		return (target)*(price[ind]); 
+	}
+	if(dp[ind][target]!=-1)return dp[ind][target];
+	int notpick=f(ind-1,target,price,dp);
+	int pick=-1e9;
+	int rod=ind+1;
+	if(rod<=target)
+	{
+		pick=price[ind]+f(ind,target-rod,price,dp);
+	}
+	return dp[ind][target]=max(pick,notpick);
+}
+
