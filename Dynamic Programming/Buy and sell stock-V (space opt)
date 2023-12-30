@@ -1,0 +1,24 @@
+int stockProfit(vector<int> &prices){
+    // Write your code here.
+    int n=prices.size();
+   vector<int>ahead1(2,0);
+   vector<int>ahead2(2,0);
+   vector<int>curr(2,0);
+    // return f(0,1,prices,dp);
+    for(int ind=n-1;ind>=0;ind--)
+    {
+        for(int buy=0;buy<=1;buy++)
+        {
+            if(buy)
+            {
+           curr[buy]=max(0+ahead1[1],-prices[ind]+ahead1[0]);
+            }
+            else{
+              curr[buy]=max(0+ahead1[0],prices[ind]+ahead2[1]);
+            }
+        }
+        ahead2=ahead1;
+        ahead1=curr;
+    }
+    return curr[1];
+}
