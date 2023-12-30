@@ -1,0 +1,28 @@
+
+long getMaximumProfit(long *values, int n)
+{
+    //Write your code here
+    vector<vector<long>>dp(n+1,vector<long>(2,0));
+    dp[n][0]=0;
+    dp[n][1]=0;
+    for(int i=n-1;i>=0;i--)
+    {
+        for(int j=1;j>=0;j--)
+        {   
+            long profit=0;
+             if(j)
+            {
+                profit=max(-values[i]+dp[i+1][0],0+dp[i+1][1]);
+            }    
+            else {
+                profit=max(values[i]+dp[i+1][1],0+dp[i+1][0]);
+            }
+           dp[i][j]=profit;
+        }
+    }
+    return dp[0][1];
+
+
+
+        // return f(0,1,values,n,dp);
+}
