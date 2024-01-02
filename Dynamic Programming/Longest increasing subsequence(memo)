@@ -1,0 +1,22 @@
+#include<bits/stdc++.h>
+int f(int ind,int prev,int arr[],int n,vector<vector<int>>&dp)
+{
+    if(ind==n)return 0;
+    if (dp[ind][prev+1]!=-1)return dp[ind][prev+1];
+
+    int nottake=0+f(ind+1,prev,arr,n,dp);
+    int take=0;
+    if(prev==-1 || arr[ind]>arr[prev])
+    {
+        take=1+f(ind+1,ind,arr,n,dp);
+    }
+    return dp[ind][prev+1]=max(nottake,take);
+}
+
+
+int longestIncreasingSubsequence(int arr[], int n)
+{
+    // Write Your Code here
+    vector<vector<int>>dp(n+1,vector<int>(n+1,-1));
+    return f(0,-1,arr,n,dp);
+}
