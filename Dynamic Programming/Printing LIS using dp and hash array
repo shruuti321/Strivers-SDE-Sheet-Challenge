@@ -1,0 +1,44 @@
+ector<int> printingLongestIncreasingSubsequence(vector<int> arr, int n) {
+	// Write your code here
+	vector<int>dp(n,1);
+	vector<int>hash(n);
+	for(int ind=0;ind<n;ind++)
+	{
+		hash[ind]=ind;
+		for(int prev=0;prev<ind;prev++)
+		{	
+			
+			if(arr[prev]<arr[ind])
+			{
+				if(dp[ind]<dp[prev]+1)
+				{
+					dp[ind]=1+dp[prev];
+					hash[ind]=prev;
+				}
+					
+			}
+		}
+	}
+	int maxi=0;
+	int index;
+	for(int i=0;i<n;i++)
+	{
+		if(dp[i]>maxi)
+		{
+			maxi=dp[i];
+			index=i;
+		}
+	}
+	
+	vector<int>ans;
+	int i=index;
+	while(i>=0)
+	{
+		ans.push_back(arr[i]);
+		i=hash[i];
+		maxi--;
+		if(maxi==0)break;
+	}
+	reverse(ans.begin(),ans.end());
+	return ans;
+}
