@@ -1,0 +1,21 @@
+
+int longestIncreasingSubsequence(int arr[], int n)
+{
+    // Write Your Code here
+    vector<vector<int>>dp(n+1,vector<int>(n+1,0));
+    // return f(0,-1,arr,n,dp);
+    for(int ind=n-1;ind>=0;ind--)
+    {
+        for(int prev=ind-1;prev>=-1;prev--)
+        {
+            int nottake=0+dp[ind+1][prev+1];
+            int take=0;
+            if(prev==-1 || arr[ind]>arr[prev])
+            {
+                take=1+dp[ind+1][ind+1];
+            }
+           dp[ind][prev+1]=max(nottake,take);
+      }
+    }
+    return dp[0][-1+1];
+}
