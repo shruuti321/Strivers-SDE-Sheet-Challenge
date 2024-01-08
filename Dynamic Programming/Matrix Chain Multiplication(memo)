@@ -1,0 +1,19 @@
+#include<vector>
+int f(int i,int j,int* arr,int n,vector<vector<int>>&dp)
+{
+    if(i==j)return 0;
+    if(dp[i][j]!=-1)return dp[i][j];
+    int mni=1e9;
+    for(int k=i;k<=j-1;k++)
+    {
+        int step=arr[i-1]*arr[k]*arr[j]+f(i,k,arr,n,dp)+f(k+1,j,arr,n,dp);
+        mni=min(mni,step);
+    }
+    return dp[i][j]=mni;
+}
+
+int matrixChainMultiplication(int* arr, int n) {
+    // Write your code here
+    vector<vector<int>>dp(n+1,vector<int>(n+1,-1));
+    return f(1,n,arr,n+1,dp);
+}
