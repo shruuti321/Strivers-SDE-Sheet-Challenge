@@ -1,0 +1,18 @@
+void find(BinaryTreeNode<int>*root,int x,bool &flag)
+{
+    if(root==NULL)return;
+    if(x==root->data){
+        flag=true;
+    }
+    else if(x<root->data)
+    {
+        find(root->left,x,flag);
+    }
+    else find(root->right,x,flag);
+    }
+bool searchInBST(BinaryTreeNode<int> *root, int x) {
+    // Write your code here.
+    bool flag=false;
+    find(root,x,flag);
+    return flag;
+}
