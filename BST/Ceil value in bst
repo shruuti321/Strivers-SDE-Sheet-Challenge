@@ -1,0 +1,31 @@
+void f(BinaryTreeNode<int> *node,int x,int &mini,int &ans)
+{   
+    if(node==NULL)return;
+    if(x==node->data)
+    {
+        mini=0;
+        ans=x;
+    }
+    else if(x>node->data)
+    {
+        f(node->right,x,mini,ans);
+    }
+    else if(x<node->data)
+    {   
+        if(node->data-x<mini)
+        {
+            mini=(node->data)-x;
+            ans=node->data;
+        }
+        f(node->left,x,mini,ans);
+    }
+    return;
+   
+}
+int findCeil(BinaryTreeNode<int> *node, int x){
+    // Write your code here.
+    int mini=INT_MAX;
+    int ans=-1;
+     f(node,x,mini,ans);
+    return ans;
+    }
