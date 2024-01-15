@@ -1,0 +1,30 @@
+void f(BinaryTreeNode<int> *node,int input,int &mini,int &ans)
+{
+	if(node==NULL)return;
+	if(node->data==input){
+		mini=0;
+		ans=input;
+	}
+	else if(input>node->data)
+	{	
+		if(input-(node->data)<mini)
+		{
+			mini=input-(node->data);
+			ans=node->data;
+		}
+		f(node->right,input,mini,ans);
+	}
+	else{
+		f(node->left,input,mini,ans);
+	}
+	return;
+}
+int Floor(BinaryTreeNode<int> *node, int input)
+{
+		/*Write your code here. */
+	 int ans=-1;
+	 int mini=INT_MAX;
+	 f(node,input,mini,ans);
+	 return ans;
+
+}
