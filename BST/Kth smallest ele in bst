@@ -1,0 +1,18 @@
+void f(TreeNode<int>*root,vector<int>&v,int &k,int &ans)
+{
+    if(root==NULL)return;
+    f(root->left,v,k,ans);
+     k--;
+    if(k==0)ans=root->data;
+    // v.push_back(root->data);
+    f(root->right,v,k,ans);
+}
+int kthSmallest(TreeNode<int> *root, int k)
+{
+    //  Write the code here.
+    vector<int>v;
+    int ans=-1;
+    f(root,v,k,ans);
+    //return v[k-1];
+    return ans;
+}
