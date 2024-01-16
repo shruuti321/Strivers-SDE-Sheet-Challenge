@@ -1,0 +1,15 @@
+TreeNode* f(vector<int>v,int &ind,int ub)
+{
+    if(ind==v.size() || v[ind]>ub)return NULL;
+    TreeNode *root=new TreeNode(v[ind++]);
+    root->left=f(v,ind,root->data);
+    root->right=f(v,ind,ub);
+    return root;
+    
+}
+TreeNode *preOrderTree(vector<int> &preOrder)
+{
+    // Write your code here.
+    int i=0;
+    return f(preOrder,i,INT_MAX);
+}
