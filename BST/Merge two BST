@@ -1,0 +1,35 @@
+
+vector<int> mergeBST(TreeNode *root1, TreeNode *root2)
+{
+    // Write your code here.
+    stack<TreeNode*>s1,s2;
+    vector<int>ans;
+    while(!s1.empty()||!s2.empty()||root1||root2)
+    {
+        while(root1)
+        {
+            s1.push(root1);
+            root1=root1->left;
+        }
+        while(root2)
+        {
+            s2.push(root2);
+            root2=root2->left;
+        }
+        if(!s2.empty() && (s1.empty() || s1.top()->data>s2.top()->data))
+        {          
+            root2=s2.top();
+                 ans.push_back(s2.top()->data);
+                 s2.pop();
+                root2=root2->right;
+        }
+        else{
+            root1=s1.top();
+            ans.push_back(s1.top()->data);
+                 s1.pop();
+                  root1=root1->right;
+        }
+
+    }
+    return ans;
+}
