@@ -1,0 +1,30 @@
+void f(vector<int>&v, TreeNode* root)
+{
+    if(root==NULL)return;
+    
+    f(v,root->left);
+    v.push_back(root->data);
+    f(v,root->right);
+}
+void check(vector<int>v,TreeNode* root,int &i)
+{
+    if(root==NULL)return;
+    check(v,root->left,i);
+    if(root->data!=v[i])
+    {
+        root->data=v[i];
+    }
+    i++;
+   
+     check(v,root->right,i);
+}
+
+TreeNode * FixBST(TreeNode * root){
+    // Write your code here.
+    vector<int>v;
+    f(v,root); 
+    sort(v.begin(),v.end());
+    int i=0;
+    check(v,root,i);
+    return root;
+}
