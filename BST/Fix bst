@@ -1,0 +1,34 @@
+class Solution {
+public:
+ TreeNode *first=NULL;
+         TreeNode *last=NULL;
+          TreeNode *prev=NULL;
+    void f(TreeNode* root)
+    {
+        if(root==NULL)return;
+        f(root->left);
+        if(prev!=NULL && root->val<prev->val)
+        {
+            if(first==NULL)
+            {
+                first=prev;
+            }
+            last=root;
+        }
+        prev=root;
+        f(root->right);
+    }
+    void recoverTree(TreeNode* root) {
+       
+       if(root==NULL)return;
+        f(root);
+        if(first&&last)
+        {
+             int temp=first->val;
+        first->val=last->val;
+        last->val=temp;
+        }
+       
+  
+    }
+};
