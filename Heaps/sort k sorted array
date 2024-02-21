@@ -1,0 +1,23 @@
+#include <bits/stdc++.h> 
+vector < int > nearlySorted(vector < int > array, int n, int k) {
+    // Write your code here.
+    priority_queue<int,vector<int>,greater<int>>pq;
+    vector<int>ans;
+    int i=0;
+    while(i<n)
+    {
+        pq.push(array[i]);
+        if(pq.size()>k)
+        {
+            ans.push_back(pq.top());
+            pq.pop();
+        }
+        i++;
+    }
+    while(!pq.empty())
+    {
+        ans.push_back(pq.top());
+        pq.pop();
+    }
+    return ans;
+}
