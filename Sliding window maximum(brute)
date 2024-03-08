@@ -1,0 +1,26 @@
+void getMax(vector<int>arr,int l,int r,vector<int>&ans)
+{   
+    int maxi=-1e9;
+    for(int i=l;i<=r;i++)
+    {
+        maxi=max(maxi,arr[i]);
+    }
+    ans.push_back(maxi);
+}
+vector<int> maxSlidingWindow(vector<int> &arr, int n, int k){
+    // Write your code here.
+    int l=0;
+    int r=0;
+    vector<int>ans;
+    while(r<k-1)
+    {
+        r++;
+    }
+    while(r<n)
+    {
+        getMax(arr,l,r,ans);
+        l++;
+        r++;
+    }
+    return ans;
+}
