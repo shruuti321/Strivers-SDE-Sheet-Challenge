@@ -1,0 +1,27 @@
+void backtrack(int ind, unordered_map<char, string>& mpp,string str, string digits,vector<string>& ans) {
+    if (str.size() == digits.size()) {
+        ans.push_back(str);
+        return;
+    }
+    for (auto i : mpp[digits[ind]]) {
+        backtrack(ind + 1, mpp, str + i, digits, ans);
+    }
+}
+
+vector<string> letterCombinations(string digits) {
+    unordered_map<char,string> mpp{
+        {'2', "abc"},
+        {'3', "def"},
+        {'4', "ghi"},
+        {'5', "jkl"},
+        {'6', "mno"},
+        {'7', "pqrs"},
+        {'8', "tuv"},
+        {'9', "wxyz"}
+    };
+    vector<string> ans;
+    if (!digits.empty()) {
+        backtrack(0, mpp, "", digits, ans);
+    }
+    return ans;
+}
