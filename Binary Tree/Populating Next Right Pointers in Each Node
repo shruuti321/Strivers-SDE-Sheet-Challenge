@@ -1,0 +1,30 @@
+
+void connect(Node* root) {
+    // add your logic here
+	
+	queue<Node*>q;
+    q.push(root);
+	while(!q.empty())
+	{
+		int s=q.size();
+		Node* prev=new Node(-1);               //create dummy node
+		for(int i=0;i<s;i++)
+		{
+			Node* node=q.front();
+			prev->next=node;                     //connecting current to right node
+			prev=node;
+			q.pop();
+			if(node->left!=NULL)
+			{
+				q.push(node->left);	
+			}
+				if(node->right!=NULL)
+			{
+				q.push(node->right);
+				
+			}
+		}
+		prev->next=NULL;                      //last node of each level->next=NULL
+	}
+   
+}
