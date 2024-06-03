@@ -1,0 +1,51 @@
+######solution 1#######
+
+#include <bits/stdc++.h> 
+int uniqueSubstrings(string input)
+{
+    //Write your code here
+    int l=0;
+    int maxl=0;
+    map<char,int>mpp;
+    for(int r=0;r<input.size();r++)
+    {
+       
+        while(mpp.find(input[r])!=mpp.end() and l<input.size())
+        {
+            mpp[input[l]]--;
+            if(mpp[input[l]]==0)
+            {
+                mpp.erase(input[l]);
+            }
+            l++;
+        }
+        
+            maxl=max(maxl,r-l+1);
+        
+         mpp[input[r]]++;
+    }
+    return maxl;
+}
+
+
+######solution 2#######
+
+class Solution {
+public:
+    int lengthOfLongestSubstring(string s) {
+        map<char,int>mpp;
+        int n=s.size();                      
+        int l=0;
+        int maxl=0;
+        for(int r=0;r<n;r++)
+        {
+            if(mpp.find(s[r])!=mpp.end())
+            {
+                l=max(l,mpp[s[r]]+1);
+            }
+            else  maxl=max(maxl,r-l+1);
+            mpp[s[r]]=r;
+        }
+        return maxl;
+    }
+};
