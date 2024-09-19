@@ -1,0 +1,65 @@
+//{ Driver Code Starts
+#include <bits/stdc++.h>
+using namespace std;
+
+
+// } Driver Code Ends
+class Solution {
+  public:
+    int f(int n,int m,vector<vector<int>>& grid,int r1,int c1,int c2)
+    {
+        if(r1>=n || c1>=m  || c2>=m || c1<0 || c2<0)
+        {
+            return 0;
+        }                                                            //memoize this using 3d dp[r1][c1][c2]
+        if(r1==n-1)
+        {
+            if(c1==c2)return grid[r1][c1];
+            else return grid[r1][c1]+grid[r1][c2];
+        }
+        int maxi=INT_MIN;
+        for(int i=-1;i<=1;i++)
+        {
+            for(int j=-1;j<=1;j++)
+            {
+                int ans;
+                if(c1==c2) ans=grid[r1][c1]+f(n,m,grid,r1+1,c1+i,c2+j);
+                else ans=grid[r1][c1]+grid[r1][c2]+f(n,m,grid,r1+1,c1+i,c2+j);
+                maxi=max(maxi,ans);
+            }
+           
+        }
+        return maxi;
+    }
+    
+    int solve(int n, int m, vector<vector<int>>& grid) {
+        // code here
+        return f(n,m,grid,0,0,m-1);
+    }
+};
+
+//{ Driver Code Starts.
+
+int main() {
+    int t;
+    cin >> t;
+    while (t--) {
+        int n, m;
+        cin >> n >> m;
+        vector<vector<int>> grid;
+        for (int i = 0; i < n; i++) {
+            vector<int> temp;
+            for (int j = 0; j < m; j++) {
+                int x;
+                cin >> x;
+                temp.push_back(x);
+            }
+            grid.push_back(temp);
+        }
+
+        Solution obj;
+        cout << obj.solve(n, m, grid) << "\n";
+    }
+    return 0;
+}
+// } Driver Code Ends
