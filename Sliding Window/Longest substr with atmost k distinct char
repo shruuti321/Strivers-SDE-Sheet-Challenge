@@ -1,0 +1,21 @@
+#include <bits/stdc++.h> 
+int getLengthofLongestSubstring(string s, int k) {
+    // Write your code here.
+    map<char,int>mpp;
+    int l=0;
+    int maxl=0;
+    for(int r=0;r<s.size();r++)
+    {
+        mpp[s[r]]++;
+        if(mpp.size()<=k)
+        {
+            maxl=max(maxl,r-l+1);
+        }
+        else{
+           mpp[s[l]]--;
+           if(mpp[s[l]]==0)mpp.erase(s[l]);
+           l=l+1;
+        }
+    }
+    return maxl;
+}
