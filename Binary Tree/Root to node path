@@ -1,0 +1,16 @@
+bool f(vector<int>&ans,TreeNode<int>*root,int x)
+{
+	if(root==NULL)return false;
+	ans.push_back(root->data);
+	if(root->data==x)return true;
+	if(f(ans,root->left,x)||f(ans,root->right,x))return true;
+	ans.pop_back();
+	return false;
+}
+vector<int> pathInATree(TreeNode<int> *root, int x)
+{
+    // Write your code here.
+	vector<int>ans;
+	f(ans,root,x);
+	return ans;
+}
