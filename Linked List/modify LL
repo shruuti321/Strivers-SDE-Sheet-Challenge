@@ -1,0 +1,59 @@
+#include <bits/stdc++.h> 
+/****************************************************************
+
+    Following is the class structure of the Node class:
+
+    class Node
+    {
+    public:
+        int data;
+        Node *next;
+        Node(int data)
+        {
+	        this->data = data;
+	        this->next = NULL;
+        }
+    };
+
+*****************************************************************/
+Node* rev(Node* temp)
+{
+    Node* prev=NULL;
+    Node* curr=temp;
+    Node* forw=NULL;
+    while(curr!=NULL)
+    {
+        forw=curr->next;
+        curr->next=prev;
+        prev=curr;
+        curr=forw;
+    }
+    return prev;
+}
+Node* modifyLL(Node* head) 
+{
+	// Write your code here.
+    Node* temp=head;
+    Node* ans=head;
+    Node* slow=head;
+    Node* fast=head;
+    while(fast && fast->next)
+    {
+        slow=slow->next;
+        fast=fast->next->next;
+        
+    }
+    Node* second=rev(slow);
+
+    while(second and temp!=slow)
+    {
+        Node* x=temp->next;
+        temp->next=second;
+        Node* y=second->next;
+        if(x==slow)break;
+        second->next=x;
+        second=y;
+        temp=x;
+    }
+    return ans;
+}
